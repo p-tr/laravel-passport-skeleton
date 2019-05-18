@@ -4,6 +4,8 @@
 
 You should fork this repository before working with it.
 
+You'll need [Vagrant](https://vagrantup.com)
+
 
 Then:
 
