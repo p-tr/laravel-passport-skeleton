@@ -7,12 +7,17 @@ You should fork this repository before working with it.
 You'll need [Vagrant](https://vagrantup.com)
 
 
-Then:
+Once forked and cloned on your local development machine, install project dependencies and setup .env file:
 
-1. Copy .env.example to .env
-2. Run ```composer install```
-3. Run ```vendor/bin/homestead make```
-4. Run ```vagrant up```
+```
+composer install && composer run-script post-root-package-install
+```
+
+Afterwards, you'll have to setup Homestead with ```vendor/bin/homestead make```
+
+Whenever you start working on your project : ```vagrant up```
+
+When done : ```vagrant halt```
 
 
 Vagrant will provision Homestead virtual machine and setup application skeleton.
