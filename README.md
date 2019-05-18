@@ -25,6 +25,8 @@ Vagrant will provision Homestead virtual machine and setup application skeleton.
 
 ### POST /api/token
 
+Login user against Oauth2 server.
+
 __Request:__
 
 __Headers:__
@@ -68,6 +70,8 @@ __Body:__
 
 ### DELETE /api/token
 
+Delete authorization token provided in "Authorization" header, effectively logging out current user.
+
 __Request:__
 
 __Headers:__
@@ -91,6 +95,8 @@ __Body:__
 ```
 
 ### POST /api/token/refresh
+
+Refresh a given authorization token, using Oauth2 server.
 
 __Request:__
 
@@ -125,6 +131,8 @@ __Body:__
 ```
 
 ### GET /api/user
+
+Return back to caller a JSON representation of current user, given an authorization token.
 
 __Request:__
 
