@@ -45,7 +45,7 @@ __Body:__
 
 __Response:__
 
-__Status Code:__ 200 (OK) or 401 (Unauthorized)
+__Status Code:__ 200 (OK) | 401 (Unauthorized) | 422 (Unprocessable Entity)
 
 __Body:__
 
