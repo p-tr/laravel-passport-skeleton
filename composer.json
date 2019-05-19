@@ -59,6 +59,22 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-install-cmd": [
+            "@post-root-package-install",
+            "vendor/bin/homestead make"
+        ],
+        "setup": [
+            "@php artisan key:generate",
+            "@php artisan passport:keys"
+        ],
+        "reset": [
+            "@setup",
+            "@php artisan migrate:fresh --seed",
+            "@test"
+        ],
+        "test": [
+            "vendor/bin/phpunit"
         ]
     }
 }

@@ -17,6 +17,5 @@ sudo systemctl restart php7.1-fpm
 
 # migrate and seed database for development
 (cd /home/vagrant/code && {
-    composer install
-    php artisan app:reset
+    composer run-script app-reset
 })

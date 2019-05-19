@@ -7,26 +7,32 @@ You should fork this repository before working with it.
 You'll need [Vagrant](https://vagrantup.com)
 
 
-Once forked and cloned on your local development machine, install project dependencies and setup .env file:
-
-```
-composer install && composer run-script post-root-package-install
-```
-
-Afterwards, you'll have to setup Homestead with ```vendor/bin/homestead make```
+Once forked and cloned on your local development machine, run ```composer install```
 
 Whenever you start working on your project : ```vagrant up```
 
 When done : ```vagrant halt```
 
 
-Vagrant will provision Homestead virtual machine and setup application skeleton.
-
 ## What comes bundled with this repository
 
 * Oauth2 server provided by laravel/passport.
-* Basic API calls for managing session
+* Simple Session API built on top of Oauth2 server
 * Basic User model
+* Custom composer scripts
+
+## Composer scripts
+
+All scripts must run inside Homestead or production environment:
+
+* ```composer run-script test```  : run unit & feature tests
+* ```composer run-script setup``` : setup application, install passport
+* ```composer run-script reset``` : reset application, migrate fresh database, run tests
+
+## Automatic Homestead.yaml generation
+
+Outside Homestead, each time you run ```composer install```, Homestead.yaml is
+generated automagically and "post-root-package-install" script is run.
 
 ## Session API
 
