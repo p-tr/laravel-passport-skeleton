@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Auth\AuthenticationException;
+
 use Laravel\Passport\Client;
 use Laravel\Passport\ClientRepository;
 
@@ -33,20 +35,25 @@ class SessionController extends Controller
         return new HttpClient([
                 'headers' => [
                     'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
             ]);
     }
 
     /**
      * Find or create password grant client
+     *
+     * @return Laravel\Passport\Client
      */
-    private function getClient()
+    private function getPasswordGrantClient()
     {
-        $name = md5(env('APP_NAME', '-'));
+        $name = hash('sha512', env('APP_KEY', ''));
+
         $client = Client::where('name', $name)->get()->first();
 
         if(!$client) {
-            $client = (new ClientRepository)->createPasswordGrantClient(null, $name, url('/'));
+            $repo = new ClientRepository;
+            $client = $repo->createPasswordGrantClient(null, $name, url('/'));
         }
 
         return $client;
@@ -56,13 +63,13 @@ class SessionController extends Controller
      * /oauth/token client helper, avoids repeating ourselves...
      *
      * @param array $data
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     private function getToken(array $data)
     {
         $response = null;
 
-        $client = $this->getClient();
+        $client = $this->getPasswordGrantClient();
 
         try {
 
@@ -73,7 +80,7 @@ class SessionController extends Controller
                 'form_params' => array_merge([
                         'client_id' => $client->id,
                         'client_secret' => $client->secret,
-                        'scope' => ''
+                        'scope' => '*'
                     ], $data)
             ]);
 
